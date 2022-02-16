@@ -2,15 +2,15 @@ package ua.goit.config;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 import java.util.Properties;
 
 public class PropertiesUtil {
     Properties properties = null;
 
-    public PropertiesUtil(){
+    public PropertiesUtil() {
         load();
     }
+
     public String getHostname() {
         return properties.getProperty("database.hostname");
     }
