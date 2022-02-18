@@ -17,16 +17,18 @@ public class Main {
                 util.getSchema(),
                 util.getUser(),
                 util.getPassword());
-        try {
-            Connection connect = connector.getConnection();
-            Repository<DevelopersDao> devRep = new DevelopersRepository(connect);
-            DevelopersDao devId = devRep.findById(1);
-            System.out.println(devId.getName());
-            System.out.println(devId.getSex());
-            System.out.println(devId.getSalary());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Repository<DevelopersDao> devRep = new DevelopersRepository(connector);
+//        DevelopersDao devId = devRep.findById(36);
+//        System.out.println(devId.getName());
+//        System.out.println(devId.getSex());
+//        System.out.println(devId.getSalary());
 
+
+        DevelopersDao newDev = new DevelopersDao();
+        newDev.setName("Alina");
+        newDev.setSex("female");
+        newDev.setSalary(3500.00);
+
+        devRep.save(newDev);
     }
 }

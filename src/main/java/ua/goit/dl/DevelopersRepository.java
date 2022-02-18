@@ -1,8 +1,8 @@
 package ua.goit.dl;
 
+import ua.goit.config.DataBaseManagerConnector;
 import ua.goit.model.dao.DevelopersDao;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,20 +10,22 @@ import java.sql.SQLException;
 
 public class DevelopersRepository implements Repository<DevelopersDao> {
 
-    private final Connection connection;
+    private final DataBaseManagerConnector connector;
     private static final String FIND_BY_ID = "SELECT * FROM developers d WHERE d.id = ?";
+    private static final String INSERT = "INSERT INTO developers (name, sex, salary) VALUES (?, ?, ?)";
 
-    public DevelopersRepository(Connection connection) {
-        this.connection = connection;
+    public DevelopersRepository(DataBaseManagerConnector connector) {
+        this.connector = connector;
     }
 
     @Override
     public DevelopersDao findById(Integer id) {
-        try(PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)){
+        try (Connection connection = connector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             return mapToDevelopersDao(resultSet);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -32,8 +34,16 @@ public class DevelopersRepository implements Repository<DevelopersDao> {
 
 
     @Override
-    public void save(DevelopersDao entity) {
-
+    public void save(DevelopersDao developers) {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(INSERT)) {
+            statement.setString(1, developers.getName());
+            statement.setString(2, developers.getSex());
+            statement.setDouble(3, developers.getSalary());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -42,12 +52,13 @@ public class DevelopersRepository implements Repository<DevelopersDao> {
     }
 
     @Override
-    public void delete(DevelopersDao entity) {
+    public void remove(DevelopersDao entity) {
 
     }
+
     private DevelopersDao mapToDevelopersDao(ResultSet resultSet) throws SQLException {
         DevelopersDao developersDao = new DevelopersDao();
-        while(resultSet.next()) {
+        while (resultSet.next()) {
             developersDao.setId(resultSet.getInt("id"));
             developersDao.setName(resultSet.getString("name"));
             developersDao.setSex(resultSet.getString("sex"));
