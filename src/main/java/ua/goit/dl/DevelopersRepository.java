@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevelopersRepository implements Repository<DevelopersDao> {
 
@@ -37,6 +39,29 @@ public class DevelopersRepository implements Repository<DevelopersDao> {
 
     }
 
+    @Override
+    public List<DevelopersDao> selectAll() {
+        List<DevelopersDao> developers = new ArrayList<>();
+        try (Connection connection = connector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_DEVELOPERS)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                DevelopersDao developersDao = new DevelopersDao();
+                developersDao.setId(resultSet.getInt("id"));
+                developersDao.setName(resultSet.getString("name"));
+                developersDao.setSex(resultSet.getString("sex"));
+                developersDao.setSalary(resultSet.getDouble("salary"));
+                developers.add(developersDao);
+//                System.out.println(resultSet.getInt("id") +
+//                        " " + resultSet.getString("name") +
+//                        " " + resultSet.getString("sex") +
+//                        " " + resultSet.getDouble("salary"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return developers;
+    }
 
     @Override
     public void save(DevelopersDao developers) {

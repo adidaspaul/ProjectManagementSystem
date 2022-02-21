@@ -25,12 +25,12 @@ public class Main {
 //        System.out.println(devId.getSalary());
 
 
-        DevelopersDao newDev = new DevelopersDao();
-        newDev.setId(18);
-        newDev.setName("Vasya");
-        newDev.setSex("male");
-        newDev.setSalary(3200.50);
-        devRep.saveWithId(newDev);
+//        DevelopersDao newDev = new DevelopersDao();
+//        newDev.setId(18);
+//        newDev.setName("Vasya");
+//        newDev.setSex("male");
+//        newDev.setSalary(3200.50);
+//        devRep.saveWithId(newDev);
 //        newDev.setName("Alina");
 //        newDev.setSex("female");
 //        newDev.setSalary(3500.00);
