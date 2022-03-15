@@ -6,7 +6,7 @@ public class ProjectsDao {
 
     private Integer id;
     private String projectName;
-    private Double worth;
+    private Double cost;
 
     public ProjectsDao() {
     }
@@ -14,7 +14,7 @@ public class ProjectsDao {
     public ProjectsDao(Integer id, String projectName, Double worth) {
         this.id = id;
         this.projectName = projectName;
-        this.worth = worth;
+        this.cost = worth;
     }
 
     public Integer getId() {
@@ -33,12 +33,12 @@ public class ProjectsDao {
         this.projectName = projectName;
     }
 
-    public Double getWorth() {
-        return worth;
+    public Double getCost() {
+        return cost;
     }
 
-    public void setWorth(Double worth) {
-        this.worth = worth;
+    public void setCost(Double cost) {
+        this.cost = cost;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ProjectsDao {
         return "ProjectsDao{" +
                 "id=" + id +
                 ", projectName='" + projectName + '\'' +
-                ", worth=" + worth +
+                ", worth=" + cost +
                 '}';
     }
 
@@ -55,12 +55,12 @@ public class ProjectsDao {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProjectsDao that = (ProjectsDao) o;
-        return projectName.equals(that.projectName) && worth.equals(that.worth);
+        return projectName.equals(that.projectName) && cost.equals(that.cost);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projectName, worth);
+        return Objects.hash(projectName, cost);
     }
 
 }
