@@ -1,13 +1,21 @@
 package ua.goit.model.dao;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class SkillsDao {
 
     private Integer id;
     private String rank;
-    private String[] skills;
+    private String syntax;
+
+    public SkillsDao() {
+    }
+
+    public SkillsDao(Integer id, String rank, String syntax) {
+        this.id = id;
+        this.rank = rank;
+        this.syntax = syntax;
+    }
 
     public Integer getId() {
         return id;
@@ -25,12 +33,12 @@ public class SkillsDao {
         this.rank = rank;
     }
 
-    public String[] getSkills() {
-        return Arrays.toString(skills).replaceAll("[\\[\\]]", "").split(", ");
+    public String getSyntax() {
+        return syntax;
     }
 
-    public void setSkills(String[] skills) {
-        this.skills = skills;
+    public void setSyntax(String syntax) {
+        this.syntax = syntax;
     }
 
     @Override
@@ -38,7 +46,7 @@ public class SkillsDao {
         return "SkillsDao{" +
                 "id=" + id +
                 ", rank='" + rank + '\'' +
-                ", skills=" + Arrays.toString(skills) +
+                ", skills=" + syntax +
                 '}';
     }
 
@@ -47,11 +55,11 @@ public class SkillsDao {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SkillsDao that = (SkillsDao) o;
-        return Objects.equals(rank, that.rank) && Arrays.equals(skills, that.skills);
+        return Objects.equals(rank, that.rank) && Objects.equals(syntax, that.syntax);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rank, Arrays.hashCode(skills));
+        return Objects.hash(rank, syntax);
     }
 }
