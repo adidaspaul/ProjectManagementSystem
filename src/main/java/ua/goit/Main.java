@@ -5,6 +5,9 @@ import ua.goit.config.PropertiesUtil;
 import ua.goit.dl.DevelopersRepository;
 import ua.goit.dl.Repository;
 import ua.goit.model.dao.DevelopersDao;
+
+import java.util.List;
+import java.util.stream.Collectors;
 //import ua.goit.model.dao.ProjectsDao;
 //import ua.goit.model.dao.SkillDao;
 //import ua.goit.model.dao.SkillDevelopersDao;
@@ -19,7 +22,8 @@ public class Main {
                 util.getUser(),
                 util.getPassword());
         Repository<DevelopersDao> devRep = new DevelopersRepository(connector);
-//        DevelopersDao devId = devRep.findById(19);
+//       List<DevelopersDao> devId = devRep.selectAll();
+//       devId.stream().forEach(System.out::println);
 //        System.out.println(devId.getName());
 //        System.out.println(devId.getSex());
 //        System.out.println(devId.getSalary());
