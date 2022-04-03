@@ -1,11 +1,13 @@
 package ua.goit.model.dao;
 
 import java.util.Objects;
+import java.sql.Date;
 
 public class ProjectsDao {
 
     private Integer id;
     private String projectName;
+    private Date startDate;
     private Double cost;
 
     public ProjectsDao() {
@@ -31,6 +33,14 @@ public class ProjectsDao {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Double getCost() {

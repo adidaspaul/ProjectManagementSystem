@@ -27,12 +27,12 @@ values
         ('Senior','Java');
 
 insert into
-    projects (project_name, cost)
+    projects (project_name, start_date, cost)
 values
-    ('LibraryApp', 100000.0),
-    ('GroceryStore', 200000.00),
-    ('TouristAgency', 375000.00),
-    ('FurnitureStoreSystem', 1000.0);
+    ('LibraryApp', '2017-08-24', 100000.0),
+    ('GroceryStore','2019-08-24', 200000.00),
+    ('TouristAgency','2018-08-24', 375000.00),
+    ('FurnitureStoreSystem','2020-08-24', 1000.0);
 
     insert into
         companies (company_name, city)

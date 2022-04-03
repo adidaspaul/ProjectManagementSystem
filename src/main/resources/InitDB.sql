@@ -14,6 +14,7 @@ CREATE TABLE skills(
 CREATE TABLE projects(
     id serial primary key,
     project_name varchar(255) NOT NULL,
+    start_date date NOT NULL,
     cost decimal
 );
 

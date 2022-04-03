@@ -17,11 +17,11 @@ public class ProjectsRepository implements Repository<ProjectsDao> {
     private DataBaseManagerConnector connector;
 
     private static final String SELECT_ALL_PROJECTS = "SELECT * FROM projects";
-    private static final String UPDATE_PROJECT = "UPDATE projects SET project_name = ?, cost = ? WHERE id = ?";
+    private static final String UPDATE_PROJECT = "UPDATE projects SET project_name = ?, start_date = ?, cost = ? WHERE id = ?";
     private static final String DELETE_PROJECT_BY_ID = "DELETE FROM projects WHERE id = ?";
     private static final String FIND_BY_ID = "SELECT * FROM projects p WHERE p.id = ?";
-    private static final String INSERT = "INSERT INTO projects (project_name, cost) VALUES (?, ?)";
-    private static final String INSERT_WITH_ID = "INSERT INTO projects (id, project_name, cost) VALUES (?, ?, ?)";
+    private static final String INSERT = "INSERT INTO projects (project_name, start_date, cost) VALUES (?, ?, ?)";
+    private static final String INSERT_WITH_ID = "INSERT INTO projects (id, project_name, start_date, cost) VALUES (?, ?, ?, ?)";
 
     public ProjectsRepository(DataBaseManagerConnector connector) {
         this.connector = connector;
@@ -46,6 +46,7 @@ public class ProjectsRepository implements Repository<ProjectsDao> {
         while (resultSet.next()) {
             pDao.setId(resultSet.getInt("id"));
             pDao.setProjectName(resultSet.getString("project_name"));
+            pDao.setStartDate(resultSet.getDate("start_date"));
             pDao.setCost(resultSet.getDouble("cost"));
         }
         return Optional.ofNullable(pDao);
@@ -56,7 +57,8 @@ public class ProjectsRepository implements Repository<ProjectsDao> {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT)) {
             statement.setString(1, entity.getProjectName());
-            statement.setDouble(2, entity.getCost());
+            statement.setDate(2, entity.getStartDate());
+            statement.setDouble(3, entity.getCost());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,8 +85,9 @@ public class ProjectsRepository implements Repository<ProjectsDao> {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_PROJECT)) {
             statement.setString(1, entity.getProjectName());
-            statement.setDouble(2, entity.getCost());
-            statement.setInt(3, entity.getId());
+            statement.setDate(2, entity.getStartDate());
+            statement.setDouble(3, entity.getCost());
+            statement.setInt(4, entity.getId());
             columnsUpdated = statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,6 +116,7 @@ public class ProjectsRepository implements Repository<ProjectsDao> {
                 ProjectsDao pDao = new ProjectsDao();
                 pDao.setId(resultSet.getInt("id"));
                 pDao.setProjectName(resultSet.getString("project_name"));
+                pDao.setStartDate(resultSet.getDate("start_date"));
                 pDao.setCost(resultSet.getDouble("cost"));
                 projects.add(pDao);
             }
