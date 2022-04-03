@@ -1,7 +1,6 @@
 package ua.goit.dl;
 
 import ua.goit.config.DataBaseManagerConnector;
-import ua.goit.model.dao.DevelopersDao;
 import ua.goit.model.dao.ProjectsDao;
 
 import java.sql.Connection;

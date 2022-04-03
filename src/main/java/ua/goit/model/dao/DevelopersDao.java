@@ -1,5 +1,7 @@
 package ua.goit.model.dao;
 
+import java.util.Objects;
+
 public class DevelopersDao {
     private Integer id;
     private String name;
@@ -46,6 +48,29 @@ public class DevelopersDao {
 
     public void setSalary(Double salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public String toString(){
+        return "(id: " + id +
+                ", name: " + name +
+                ", sex: " + sex +
+                ", salary:" + salary + ");";
+
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DevelopersDao that = (DevelopersDao) o;
+        return name.equals(that.name) && sex.equals(that.sex) && salary.equals(that.salary);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, sex, salary);
     }
 }
 
