@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CompaniesRepository implements Repository<CompaniesDao> {
 
@@ -31,7 +32,7 @@ public class CompaniesRepository implements Repository<CompaniesDao> {
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            return mapToCompaniesDao(resultSet);
+            return mapToCompaniesDao(resultSet).orElseThrow(() -> new IllegalArgumentException("No such company"));
         } catch (
                 SQLException e) {
             e.printStackTrace();
@@ -39,14 +40,14 @@ public class CompaniesRepository implements Repository<CompaniesDao> {
         return null;
     }
 
-    private CompaniesDao mapToCompaniesDao(ResultSet resultSet) throws SQLException {
+    private Optional<CompaniesDao> mapToCompaniesDao(ResultSet resultSet) throws SQLException {
         CompaniesDao companiesDao = new CompaniesDao();
         while (resultSet.next()) {
             companiesDao.setId(resultSet.getInt("id"));
             companiesDao.setCompanyName(resultSet.getString("company_name"));
             companiesDao.setCity(resultSet.getString("city"));
         }
-        return companiesDao;
+        return Optional.ofNullable(companiesDao);
     }
 
     @Override

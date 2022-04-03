@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProjectsRepository implements Repository<ProjectsDao> {
 
@@ -33,7 +34,7 @@ public class ProjectsRepository implements Repository<ProjectsDao> {
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            return mapToProjectsDao(resultSet);
+            return mapToProjectsDao(resultSet).orElseThrow(() -> new IllegalArgumentException(String.format("No project with id %d", id)));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,14 +42,14 @@ public class ProjectsRepository implements Repository<ProjectsDao> {
         return null;
     }
 
-    private ProjectsDao mapToProjectsDao(ResultSet resultSet) throws SQLException {
+    private Optional<ProjectsDao> mapToProjectsDao(ResultSet resultSet) throws SQLException {
         ProjectsDao pDao = new ProjectsDao();
         while (resultSet.next()) {
             pDao.setId(resultSet.getInt("id"));
             pDao.setProjectName(resultSet.getString("project_name"));
             pDao.setCost(resultSet.getDouble("cost"));
         }
-        return pDao;
+        return Optional.ofNullable(pDao);
     }
 
     @Override

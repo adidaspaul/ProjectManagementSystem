@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientsRepository implements Repository<ClientsDao> {
 
@@ -34,14 +35,14 @@ public class ClientsRepository implements Repository<ClientsDao> {
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            return mapToClientsDao(resultSet);
+            return mapToClientsDao(resultSet).orElseThrow(() -> new IllegalArgumentException("No such ID" + id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private ClientsDao mapToClientsDao(ResultSet resultSet) throws SQLException {
+    private Optional<ClientsDao> mapToClientsDao(ResultSet resultSet) throws SQLException {
         ClientsDao clientsDao = new ClientsDao();
         while (resultSet.next()) {
             clientsDao.setId(resultSet.getInt("id"));
@@ -50,7 +51,7 @@ public class ClientsRepository implements Repository<ClientsDao> {
             clientsDao.setCategory(resultSet.getString("category"));
 
         }
-        return clientsDao;
+        return Optional.ofNullable(clientsDao);
     }
 
     @Override

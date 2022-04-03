@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SkillsRepository implements Repository<SkillsDao> {
 
@@ -32,7 +33,7 @@ public class SkillsRepository implements Repository<SkillsDao> {
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
-            return mapToSkillsDao(rs);
+            return mapToSkillsDao(rs).orElseThrow(() -> new IllegalArgumentException(String.format("No skills with id %d", id)));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -115,13 +116,13 @@ public class SkillsRepository implements Repository<SkillsDao> {
     }
 
 
-    private SkillsDao mapToSkillsDao(ResultSet rs) throws SQLException {
+    private Optional<SkillsDao> mapToSkillsDao(ResultSet rs) throws SQLException {
         SkillsDao skills = new SkillsDao();
         while (rs.next()) {
             skills.setId(rs.getInt("id"));
             skills.setRank(rs.getString("rank"));
             skills.setSyntax(rs.getString("skills"));
         }
-        return skills;
+        return Optional.ofNullable(skills);
     }
 }

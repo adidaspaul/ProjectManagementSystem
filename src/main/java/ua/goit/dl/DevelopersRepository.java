@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DevelopersRepository implements Repository<DevelopersDao> {
 
@@ -31,7 +32,7 @@ public class DevelopersRepository implements Repository<DevelopersDao> {
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            return mapToDevelopersDao(resultSet);
+            return mapToDevelopersDao(resultSet).orElseThrow(() -> new IllegalArgumentException("No developer with id " + id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -121,7 +122,7 @@ public class DevelopersRepository implements Repository<DevelopersDao> {
         }
     }
 
-    private DevelopersDao mapToDevelopersDao(ResultSet resultSet) throws SQLException {
+    private Optional<DevelopersDao> mapToDevelopersDao(ResultSet resultSet) throws SQLException {
         DevelopersDao developersDao = new DevelopersDao();
         while (resultSet.next()) {
             developersDao.setId(resultSet.getInt("id"));
@@ -129,6 +130,6 @@ public class DevelopersRepository implements Repository<DevelopersDao> {
             developersDao.setSex(resultSet.getString("sex"));
             developersDao.setSalary(resultSet.getDouble("salary"));
         }
-        return developersDao;
+        return Optional.ofNullable(developersDao);
     }
 }
