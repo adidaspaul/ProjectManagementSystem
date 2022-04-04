@@ -6,6 +6,8 @@ import ua.goit.dl.DevelopersRepository;
 import ua.goit.dl.Repository;
 import ua.goit.model.converter.DevelopersConverter;
 import ua.goit.model.dao.DevelopersDao;
+import ua.goit.model.dto.DevelopersDto;
+import ua.goit.service.DevelopersService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +25,14 @@ public class Main {
                 util.getSchema(),
                 util.getUser(),
                 util.getPassword());
-//        Repository<DevelopersDao> devRep = new DevelopersRepository(connector);
+
+
+
+//       Repository<DevelopersDao> devRep = new DevelopersRepository(connector);
+//       DevelopersConverter converter1 = new DevelopersConverter();
+//        DevelopersService service = new DevelopersService(converter1, devRep);
+//        DevelopersDto dto = service.findById(12);
+//        System.out.println(dto);
 //       List<DevelopersDao> devId = devRep.selectAll();
 //       devId.stream().forEach(System.out::println);
 //        System.out.println(devId.getName());

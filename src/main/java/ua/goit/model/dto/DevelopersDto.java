@@ -47,4 +47,9 @@ public class DevelopersDto {
     public void setSalary(Double salary) {
         this.salary = salary;
     }
+
+    @Override
+    public String toString(){
+        return "id: " + id + ", name: " + name + ", " + "sex:" + sex + ", " + salary;
+    }
 }
