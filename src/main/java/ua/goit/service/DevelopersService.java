@@ -23,8 +23,8 @@ public class DevelopersService {
         return converter.convert(repository.findById(id));
     }
 
-    public void delete(Integer id) {
-        repository.delete(id);
+    public void delete(DevelopersDto id) {
+        repository.delete(converter.convert(id));
     }
 
     public void update(DevelopersDto developers) {

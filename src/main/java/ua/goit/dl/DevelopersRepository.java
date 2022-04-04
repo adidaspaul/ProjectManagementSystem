@@ -112,10 +112,10 @@ public class DevelopersRepository implements Repository<DevelopersDao> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(DevelopersDao id) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_DEV_BY_ID)) {
-            statement.setInt(1, id);
+            statement.setInt(1, id.getId());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

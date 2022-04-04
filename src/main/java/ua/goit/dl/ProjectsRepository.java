@@ -96,10 +96,10 @@ public class ProjectsRepository implements Repository<ProjectsDao> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(ProjectsDao id) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_PROJECT_BY_ID)) {
-            statement.setInt(1, id);
+            statement.setInt(1, id.getId());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

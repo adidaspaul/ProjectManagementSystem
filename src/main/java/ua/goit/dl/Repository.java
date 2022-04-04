@@ -9,6 +9,6 @@ public interface Repository<T> {
     void save(T entity);
     void saveWithId(T entity);
     int update(T entity);
-    void delete(Integer id);
+    void delete(T entity);
     List<T> selectAll();
 }

@@ -91,10 +91,10 @@ public class CompaniesRepository implements Repository<CompaniesDao> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(CompaniesDao id) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_COMPANY_BY_ID)) {
-            statement.setInt(1, id);
+            statement.setInt(1, id.getId());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

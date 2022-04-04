@@ -1,7 +1,6 @@
 package ua.goit.dl;
 
 import ua.goit.config.DataBaseManagerConnector;
-import ua.goit.model.dao.DevelopersDao;
 import ua.goit.model.dao.SkillsDao;
 
 import java.sql.Connection;
@@ -83,10 +82,10 @@ public class SkillsRepository implements Repository<SkillsDao> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(SkillsDao entity) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_SKILLS_BY_ID)) {
-            statement.setInt(1, id);
+            statement.setInt(1, entity.getId());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
