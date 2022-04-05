@@ -19,7 +19,7 @@ public class SkillsService {
 
     public void save(SkillsDto skills) {
     repository.findById(skills.getId()).ifPresent(skill -> {
-        throw new IllegalArgumentException("Skill with id " + skills.getId() + " already exists");});
+        throw new IllegalArgumentException("Skill with id " + skill.getId() + " already exists");});
         repository.save(converter.convert(skills));
     }
 

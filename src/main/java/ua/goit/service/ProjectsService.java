@@ -20,7 +20,7 @@ public class ProjectsService {
 
     public void save(ProjectsDto project) {
         repository.findById(project.getId()).ifPresent(proj -> {
-            throw new IllegalArgumentException("Project with id " + project.getId() + " already exists");});
+            throw new IllegalArgumentException("Project with id " + proj.getId() + " already exists");});
         repository.save(converter.convert(project));
     }
 

@@ -20,7 +20,7 @@ public class DevelopersService {
 
     public void save(DevelopersDto developers) {
         repository.findById(developers.getId()).ifPresent(dev -> {
-            throw new IllegalArgumentException("Developer with id " + developers.getId() + " already exists");});
+            throw new IllegalArgumentException("Developer with id " + dev.getId() + " already exists");});
         repository.save(converter.convert(developers));
     }
 

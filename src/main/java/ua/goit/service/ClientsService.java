@@ -20,7 +20,7 @@ public class ClientsService {
 
     public void save(ClientsDto client) {
         repository.findById(client.getId()).ifPresent(customer -> {
-            throw new IllegalArgumentException("Client with id " + client.getId() + " already exists");});
+            throw new IllegalArgumentException("Client with id " + customer.getId() + " already exists");});
         repository.save(converter.convert(client));
     }
 

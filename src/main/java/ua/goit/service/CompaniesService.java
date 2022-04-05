@@ -21,7 +21,7 @@ public class CompaniesService {
 
     public void save(CompaniesDto company) {
         repository.findById(company.getId()).ifPresent(comp -> {
-            throw new IllegalArgumentException("Company with id " + company.getId() + " already exists");});
+            throw new IllegalArgumentException("Company with id " + comp.getId() + " already exists");});
         repository.save(converter.convert(company));
     }
 
