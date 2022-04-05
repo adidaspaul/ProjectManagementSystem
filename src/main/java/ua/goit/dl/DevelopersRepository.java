@@ -27,16 +27,16 @@ public class DevelopersRepository implements Repository<DevelopersDao> {
     }
 
     @Override
-    public DevelopersDao findById(Integer id) {
+    public Optional<DevelopersDao> findById(Integer id) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            return mapToDevelopersDao(resultSet).orElseThrow(() -> new IllegalArgumentException("No developer with id " + id));
+            return mapToDevelopersDao(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
 
     }
 

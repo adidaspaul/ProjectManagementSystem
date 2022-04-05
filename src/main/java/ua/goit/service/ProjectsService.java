@@ -19,11 +19,14 @@ public class ProjectsService {
     }
 
     public void save(ProjectsDto project) {
+        repository.findById(project.getId()).ifPresent(proj -> {
+            throw new IllegalArgumentException("Project with id " + project.getId() + " already exists");});
         repository.save(converter.convert(project));
     }
 
     public ProjectsDto findById(Integer id) {
-        return converter.convert(repository.findById(id));
+        return converter.convert(repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Project with id " + id + " not found")));
     }
 
     public void delete(ProjectsDto id) {

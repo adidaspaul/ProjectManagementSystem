@@ -19,11 +19,15 @@ public class DevelopersService {
     }
 
     public void save(DevelopersDto developers) {
+        repository.findById(developers.getId()).ifPresent(dev -> {
+            throw new IllegalArgumentException("Developer with id " + developers.getId() + " already exists");});
         repository.save(converter.convert(developers));
     }
 
     public DevelopersDto findById(Integer id) {
-        return converter.convert(repository.findById(id));
+
+        return converter.convert(repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("developers with this id was not found")));
     }
 
     public void delete(DevelopersDto id) {

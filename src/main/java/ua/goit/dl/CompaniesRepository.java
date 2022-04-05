@@ -27,17 +27,17 @@ public class CompaniesRepository implements Repository<CompaniesDao> {
     }
 
     @Override
-    public CompaniesDao findById(Integer id) {
+    public Optional<CompaniesDao> findById(Integer id) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            return mapToCompaniesDao(resultSet).orElseThrow(() -> new IllegalArgumentException("No such company"));
+            return mapToCompaniesDao(resultSet);
         } catch (
                 SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
     private Optional<CompaniesDao> mapToCompaniesDao(ResultSet resultSet) throws SQLException {

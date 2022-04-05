@@ -1,10 +1,11 @@
 package ua.goit.dl;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface Repository<T> {
 
-    T findById(Integer id);
+    Optional<T> findById(Integer id);
 
     void save(T entity);
     void saveWithId(T entity);

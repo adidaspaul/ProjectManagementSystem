@@ -27,16 +27,16 @@ public class SkillsRepository implements Repository<SkillsDao> {
 
 
     @Override
-    public SkillsDao findById(Integer id) {
+    public Optional<SkillsDao> findById(Integer id) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
-            return mapToSkillsDao(rs).orElseThrow(() -> new IllegalArgumentException(String.format("No skills with id %d", id)));
+            return mapToSkillsDao(rs);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
 

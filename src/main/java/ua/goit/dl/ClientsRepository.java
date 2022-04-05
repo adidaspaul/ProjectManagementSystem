@@ -30,16 +30,16 @@ public class ClientsRepository implements Repository<ClientsDao> {
     }
 
     @Override
-    public ClientsDao findById(Integer id) {
+    public Optional<ClientsDao> findById(Integer id) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            return mapToClientsDao(resultSet).orElseThrow(() -> new IllegalArgumentException("No such ID" + id));
+            return mapToClientsDao(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
     private Optional<ClientsDao> mapToClientsDao(ResultSet resultSet) throws SQLException {

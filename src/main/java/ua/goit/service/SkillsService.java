@@ -18,11 +18,13 @@ public class SkillsService {
     }
 
     public void save(SkillsDto skills) {
+    repository.findById(skills.getId()).ifPresent(skill -> {
+        throw new IllegalArgumentException("Skill with id " + skills.getId() + " already exists");});
         repository.save(converter.convert(skills));
     }
 
     public SkillsDto findById(Integer id) {
-        return converter.convert(repository.findById(id));
+        return converter.convert(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("No such skills")));
     }
 
     public void delete(SkillsDto id) {

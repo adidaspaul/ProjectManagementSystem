@@ -20,11 +20,13 @@ public class CompaniesService {
     }
 
     public void save(CompaniesDto company) {
+        repository.findById(company.getId()).ifPresent(comp -> {
+            throw new IllegalArgumentException("Company with id " + company.getId() + " already exists");});
         repository.save(converter.convert(company));
     }
 
     public CompaniesDto findById(Integer id) {
-        return converter.convert(repository.findById(id));
+        return converter.convert(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Company with the id was not found")));
     }
 
     public void delete(CompaniesDto id) {

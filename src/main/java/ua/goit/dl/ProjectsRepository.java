@@ -28,17 +28,17 @@ public class ProjectsRepository implements Repository<ProjectsDao> {
     }
 
     @Override
-    public ProjectsDao findById(Integer id) {
+    public Optional<ProjectsDao> findById(Integer id) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            return mapToProjectsDao(resultSet).orElseThrow(() -> new IllegalArgumentException(String.format("No project with id %d", id)));
+            return mapToProjectsDao(resultSet);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
     private Optional<ProjectsDao> mapToProjectsDao(ResultSet resultSet) throws SQLException {

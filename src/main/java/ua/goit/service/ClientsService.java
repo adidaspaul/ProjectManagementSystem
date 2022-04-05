@@ -19,11 +19,13 @@ public class ClientsService {
     }
 
     public void save(ClientsDto client) {
+        repository.findById(client.getId()).ifPresent(customer -> {
+            throw new IllegalArgumentException("Client with id " + client.getId() + " already exists");});
         repository.save(converter.convert(client));
     }
 
     public ClientsDto findById(Integer id) {
-        return converter.convert(repository.findById(id));
+        return converter.convert(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Client with id " + id + " not found")));
     }
 
     public void delete(ClientsDto id) {
