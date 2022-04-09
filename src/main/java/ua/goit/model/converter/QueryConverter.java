@@ -1,14 +1,10 @@
 package ua.goit.model.converter;
 
-import ua.goit.model.dto.ProjectDevsSalarySumDto;
-import ua.goit.model.dao.ProjectDevsSalarySumDao;
-import ua.goit.model.dao.SpecificProjectDevsDao;
-import ua.goit.model.dto.SpecificProjectDevDto;
-import ua.goit.model.dto.SyntaxDevsListDto;
-import ua.goit.model.dao.SyntaxDevsListDao;
+import ua.goit.model.dao.*;
+import ua.goit.model.dto.*;
 
 
-public class SumConverter {
+public class QueryConverter {
 
     public ProjectDevsSalarySumDto convert(ProjectDevsSalarySumDao sum){
             ProjectDevsSalarySumDto total  = new ProjectDevsSalarySumDto();
@@ -50,5 +46,36 @@ public class SumConverter {
         dev.setName(devSyntax.getName());
         dev.setSyntax(devSyntax.getSyntax());
         return dev;
+    }
+
+    public DevsRankListDao convert (DevsRankListDto devsRank){
+        DevsRankListDao dev = new DevsRankListDao();
+        dev.setName(devsRank.getName());
+        dev.setRank(devsRank.getRank());
+        return dev;
+    }
+
+    public DevsRankListDto convert (DevsRankListDao devsRank){
+        DevsRankListDto dev = new DevsRankListDto();
+        dev.setName(devsRank.getName());
+        dev.setRank(devsRank.getRank());
+        return dev;
+    }
+
+    public ProjectDateDevsDao convert (ProjectDateDevsDto projectDate){
+        ProjectDateDevsDao project = new ProjectDateDevsDao();
+        project.setStartDate(projectDate.getStartDate());
+        project.setProjectName(projectDate.getProjectName());
+        project.setCount(projectDate.getCount());
+
+        return project;
+    }
+
+    public ProjectDateDevsDto convert (ProjectDateDevsDao projectDate){
+        ProjectDateDevsDto project = new ProjectDateDevsDto();
+        project.setStartDate(projectDate.getStartDate());
+        project.setProjectName(projectDate.getProjectName());
+        project.setCount(projectDate.getCount());
+        return project;
     }
 }
