@@ -21,15 +21,18 @@ public class Main {
                 util.getUser(),
                 util.getPassword());
 
-        //ВЫБРАТЬ СУММУ ЗАРПЛАТ ВСЕХ РАЗРАБОТЧИКОВ ПО ОТДЕЛЬНОМУ ПРОЕКТУ И ВЫВЕСТИ В КОНСОЛЬ
-        QueiriesService salarySumService = new QueiriesService(sumConverter,connector);
-        System.out.println(salarySumService.getProjectSalarySumById(1));
+        //SELECT AND PRINT OUT SALARY SUM OF DEVELOPERS ON THE SPECIFIC PROJECT
+//        QueiriesService salarySumService = new QueiriesService(sumConverter,connector);
+//        System.out.println(salarySumService.getProjectSalarySumById(1));
+//
+//
+//        //SELECT AND PRINT ON CONSOLE LIST OF DEVELOPERS OF A SPECIFIC PROJECT
+//        QueiriesService developersList = new QueiriesService(sumConverter,connector);
+//        System.out.println(developersList.listOfSpecificProjectDev(2));
 
-
-        //ВЫБРАТЬ СПИСОК РАЗРАБОТЧИКОВ ПО ОТДЕЛЬНОМУ ПРОЕКТУ И ВЫВЕСТИ В КОНСОЛЬ
-        QueiriesService developersList = new QueiriesService(sumConverter,connector);
-        System.out.println(developersList.listOfSpecificProjectDev(2));
-
+//        //SELECT AND PRINT ON CONSOLE LIST OF DEVELOPERS BY SPECIFIC SYNTAX
+//        QueiriesService developersListBySyntax = new QueiriesService(sumConverter,connector);
+//        System.out.println(developersListBySyntax.listOfDevSyntax("Java"));
 
 
 //       Repository<DevelopersDao> devRep = new DevelopersRepository(connector);

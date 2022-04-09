@@ -4,8 +4,10 @@ import ua.goit.config.DataBaseManagerConnector;
 import ua.goit.model.converter.SumConverter;
 import ua.goit.model.dao.ProjectDevsSalarySumDao;
 import ua.goit.model.dao.SpecificProjectDevsDao;
+import ua.goit.model.dao.SyntaxDevsListDao;
 import ua.goit.model.dto.ProjectDevsSalarySumDto;
 import ua.goit.model.dto.SpecificProjectDevDto;
+import ua.goit.model.dto.SyntaxDevsListDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +34,11 @@ public class QueiriesService {
             "INNER JOIN devprojects ON devprojects.project_id = pr.id " +
             "INNER JOIN developers d  ON devprojects.dev_id = d.id " +
             "WHERE pr.id = ? ";
+    private static final String SYNTAXDEVS = "SELECT d.name, s.syntax FROM developers d " +
+            "INNER JOIN devskills ON devskills.dev_id = d.id " +
+            "INNER JOIN skills s ON devskills.skill_id = s.id " +
+            "WHERE s.syntax = ? " +
+            "ORDER BY d.name ";
 
 
     public QueiriesService(SumConverter sumConverter, DataBaseManagerConnector connector) {
@@ -67,6 +74,26 @@ public class QueiriesService {
             while (rs.next()) {
                 dao.setName(rs.getString("name"));
                 dao.setProjectName(rs.getString("project_name"));
+                list.add(sumConverter.convert(dao));
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return List.of();
+    }
+
+
+    public List<SyntaxDevsListDto> listOfDevSyntax(String syntax) {
+        List<SyntaxDevsListDto> list = new ArrayList();
+        SyntaxDevsListDao dao = new SyntaxDevsListDao();
+        try (Connection connection = connector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SYNTAXDEVS)) {
+            statement.setString(1, syntax.toLowerCase());
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                dao.setName(rs.getString("name"));
+                dao.setSyntax(rs.getString("syntax"));
                 list.add(sumConverter.convert(dao));
             }
             return list;
