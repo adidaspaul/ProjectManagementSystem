@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 
-public class HikariProvider {
+public class HikariProvider implements DataBaseManagerConnector {
 
    private final HikariDataSource dataSource;
 

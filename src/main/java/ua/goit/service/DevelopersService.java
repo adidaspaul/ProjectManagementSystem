@@ -30,9 +30,9 @@ public class DevelopersService {
                 .orElseThrow(() -> new IllegalArgumentException("developers with this id was not found")));
     }
 
-    public void delete(DevelopersDto id) {
-        repository.delete(converter.convert(id));
-    }
+//    public void delete(DevelopersDto id) {
+//        repository.delete(converter.convert(id));
+//    }
 
     public void update(DevelopersDto developers) {
         repository.update(converter.convert(developers));

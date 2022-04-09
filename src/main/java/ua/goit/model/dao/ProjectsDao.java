@@ -13,9 +13,10 @@ public class ProjectsDao {
     public ProjectsDao() {
     }
 
-    public ProjectsDao(Integer id, String projectName, Double worth) {
+    public ProjectsDao(Integer id, String projectName, Date startDate, Double worth) {
         this.id = id;
         this.projectName = projectName;
+        this.startDate = startDate;
         this.cost = worth;
     }
 

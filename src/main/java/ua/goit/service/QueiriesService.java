@@ -1,6 +1,7 @@
 package ua.goit.service;
 
 import ua.goit.config.DataBaseManagerConnector;
+import ua.goit.config.HikariProvider;
 import ua.goit.model.converter.QueryConverter;
 import ua.goit.model.dao.*;
 import ua.goit.model.dto.*;
@@ -15,7 +16,8 @@ import java.util.List;
 public class QueiriesService {
 
     private final QueryConverter sumConverter;
-    private final DataBaseManagerConnector connector;
+//    private final DataBaseManagerConnector connector;
+    private final HikariProvider connector;
     private static final String PROJECT_SALARY_SUM_HIGHEST = "SELECT pr.project_name, SUM(salary) total FROM projects as pr" +
             "INNER JOIN devprojects ON devprojects.project_id = pr.id" +
             "INNER JOIN developers ON devprojects.dev_id = developers.id" +
@@ -47,7 +49,7 @@ public class QueiriesService {
             "  GROUP BY pr.start_date, pr.project_name";
 
 
-    public QueiriesService(QueryConverter sumConverter, DataBaseManagerConnector connector) {
+    public QueiriesService(QueryConverter sumConverter, HikariProvider connector) {
         this.sumConverter = sumConverter;
         this.connector = connector;
     }

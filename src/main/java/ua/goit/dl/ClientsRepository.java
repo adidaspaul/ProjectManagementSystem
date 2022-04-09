@@ -99,10 +99,10 @@ public class ClientsRepository implements Repository<ClientsDao> {
     }
 
     @Override
-    public void delete(ClientsDao id) {
+    public void delete(Integer id) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_CLIENTS_BY_ID)) {
-            statement.setInt(1, id.getId());
+            statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

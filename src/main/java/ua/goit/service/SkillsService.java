@@ -27,9 +27,9 @@ public class SkillsService {
         return converter.convert(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("No such skills")));
     }
 
-    public void delete(SkillsDto id) {
-        repository.delete(converter.convert(id));
-    }
+//    public void delete(SkillsDto id) {
+//        repository.delete(converter.convert(id));
+//    }
 
     public void update(SkillsDto skills) {
         repository.update(converter.convert(skills));

@@ -1,6 +1,7 @@
 package ua.goit.dl;
 
 import ua.goit.config.DataBaseManagerConnector;
+import ua.goit.config.HikariProvider;
 import ua.goit.model.dao.CompaniesDao;
 
 import java.sql.Connection;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 public class CompaniesRepository implements Repository<CompaniesDao> {
 
-    private final DataBaseManagerConnector connector;
+    private final HikariProvider connector;
 
     private static final String SELECT_ALL_COMPANIES = "SELECT * FROM companies";
     private static final String UPDATE_COMPANY = "UPDATE companies SET company_name = ?, city = ? WHERE id = ?";
@@ -22,7 +23,7 @@ public class CompaniesRepository implements Repository<CompaniesDao> {
     private static final String INSERT = "INSERT INTO companies (company_name, city) VALUES (?, ?)";
     private static final String INSERT_WITH_ID = "INSERT INTO companies (id, company_name, city) VALUES (?, ?, ?)";
 
-    public CompaniesRepository(DataBaseManagerConnector connector) {
+    public CompaniesRepository(HikariProvider connector) {
         this.connector = connector;
     }
 
@@ -91,10 +92,10 @@ public class CompaniesRepository implements Repository<CompaniesDao> {
     }
 
     @Override
-    public void delete(CompaniesDao id) {
+    public void delete(Integer id) {
         try (Connection connection = connector.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_COMPANY_BY_ID)) {
-            statement.setInt(1, id.getId());
+            statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
