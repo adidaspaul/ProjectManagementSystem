@@ -30,9 +30,9 @@ public class ProjectDevsSalarySumDto {
     }
     @Override
     public String toString() {
-        return "SPECIFIC PROJECT SALARY SUM ***" +
+        return "*** " +
                 "projectName--> '" + projectName + '\'' +
                 ", sum--> " + sum +
-                "***";
+                " ***";
     }
 }

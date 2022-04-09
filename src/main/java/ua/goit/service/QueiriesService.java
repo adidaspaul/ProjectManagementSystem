@@ -1,15 +1,21 @@
 package ua.goit.service;
 
 import ua.goit.config.DataBaseManagerConnector;
+import ua.goit.model.converter.SpecificProjectDevConverter;
 import ua.goit.model.converter.SumConverter;
 import ua.goit.model.dao.ProjectDevsSalarySumDao;
+import ua.goit.model.dao.SpecificProjectDevsDao;
 import ua.goit.model.dto.ProjectDevsSalarySumDto;
+import ua.goit.model.dto.SpecificProjectDevDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ProjectSalarySumService {
+public class QueiriesService {
 
     private final SumConverter sumConverter;
     private final DataBaseManagerConnector connector;
@@ -23,12 +29,17 @@ public class ProjectSalarySumService {
             "INNER JOIN devprojects ON devprojects.project_id = pr.id " +
             "INNER JOIN developers ON devprojects.dev_id = developers.id " +
             "WHERE pr.id = ? GROUP BY pr.id  LIMIT 1";
+    private static final String SPECIFICPROJECTDEVS = "SELECT d.name, pr.project_name FROM projects as pr " +
+            "INNER JOIN devprojects ON devprojects.project_id = pr.id " +
+            "INNER JOIN developers d  ON devprojects.dev_id = d.id " +
+            "WHERE pr.id = ? ";
 
 
-    public ProjectSalarySumService(SumConverter sumConverter, DataBaseManagerConnector connector) {
+    public QueiriesService(SumConverter sumConverter, DataBaseManagerConnector connector) {
         this.sumConverter = sumConverter;
         this.connector = connector;
     }
+
 
     public ProjectDevsSalarySumDto getProjectSalarySumById(Integer id) {
         ProjectDevsSalarySumDao sumDao = new ProjectDevsSalarySumDao();
@@ -46,6 +57,26 @@ public class ProjectSalarySumService {
         }
         return null;
     }
+
+    public List<SpecificProjectDevDto> listOfSpecificProjectDev(Integer id) {
+        List<SpecificProjectDevDto> list = new ArrayList();
+        SpecificProjectDevsDao dao = new SpecificProjectDevsDao();
+        try (Connection connection = connector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SPECIFICPROJECTDEVS)) {
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                dao.setName(rs.getString("name"));
+                dao.setProjectName(rs.getString("project_name"));
+                list.add(sumConverter.convert(dao));
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return List.of();
+    }
+
 }
 
 

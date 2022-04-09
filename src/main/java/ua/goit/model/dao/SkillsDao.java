@@ -41,25 +41,5 @@ public class SkillsDao {
         this.syntax = syntax;
     }
 
-    @Override
-    public String toString() {
-        return "SkillsDao{" +
-                "id=" + id +
-                ", rank='" + rank + '\'' +
-                ", skills=" + syntax +
-                '}';
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SkillsDao that = (SkillsDao) o;
-        return Objects.equals(rank, that.rank) && Objects.equals(syntax, that.syntax);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(rank, syntax);
-    }
 }

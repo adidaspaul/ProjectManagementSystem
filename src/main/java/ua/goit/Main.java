@@ -2,17 +2,9 @@ package ua.goit;
 
 import ua.goit.config.DataBaseManagerConnector;
 import ua.goit.config.PropertiesUtil;
-import ua.goit.dl.DevelopersRepository;
-import ua.goit.dl.Repository;
 import ua.goit.model.converter.DevelopersConverter;
 import ua.goit.model.converter.SumConverter;
-import ua.goit.model.dao.DevelopersDao;
-import ua.goit.model.dto.DevelopersDto;
-import ua.goit.service.DevelopersService;
-import ua.goit.service.ProjectSalarySumService;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import ua.goit.service.QueiriesService;
 //import ua.goit.model.dao.ProjectsDao;
 //import ua.goit.model.dao.SkillDao;
 //import ua.goit.model.dao.SkillDevelopersDao;
@@ -30,9 +22,13 @@ public class Main {
                 util.getPassword());
 
         //ВЫБРАТЬ СУММУ ЗАРПЛАТ ВСЕХ РАЗРАБОТЧИКОВ ПО ОТДЕЛЬНОМУ ПРОЕКТУ И ВЫВЕСТИ В КОНСОЛЬ
-        ProjectSalarySumService salarySumService = new ProjectSalarySumService(sumConverter,connector);
+        QueiriesService salarySumService = new QueiriesService(sumConverter,connector);
         System.out.println(salarySumService.getProjectSalarySumById(1));
 
+
+        //ВЫБРАТЬ СПИСОК РАЗРАБОТЧИКОВ ПО ОТДЕЛЬНОМУ ПРОЕКТУ И ВЫВЕСТИ В КОНСОЛЬ
+        QueiriesService developersList = new QueiriesService(sumConverter,connector);
+        System.out.println(developersList.listOfSpecificProjectDev(2));
 
 
 

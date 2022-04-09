@@ -1,5 +1,9 @@
 package ua.goit.model.dto;
 
+import ua.goit.model.dao.SkillsDao;
+
+import java.util.Objects;
+
 public class SkillsDto {
 
     private Integer id;
@@ -37,6 +41,28 @@ public class SkillsDto {
 
     public void setSyntax(String syntax) {
         this.syntax = syntax;
+    }
+
+    @Override
+    public String toString() {
+        return "SkillsDto{" +
+                "id=" + id +
+                ", rank='" + rank + '\'' +
+                ", skills=" + syntax +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SkillsDto that = (SkillsDto) o;
+        return Objects.equals(rank, that.rank) && Objects.equals(syntax, that.syntax);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rank, syntax);
     }
 }
 
