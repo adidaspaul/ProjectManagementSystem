@@ -1,7 +1,6 @@
 package ua.goit.service;
 
 import ua.goit.config.DataBaseManagerConnector;
-import ua.goit.model.converter.SpecificProjectDevConverter;
 import ua.goit.model.converter.SumConverter;
 import ua.goit.model.dao.ProjectDevsSalarySumDao;
 import ua.goit.model.dao.SpecificProjectDevsDao;
