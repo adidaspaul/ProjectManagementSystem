@@ -109,6 +109,17 @@ public class ClientsRepository implements Repository<ClientsDao> {
         }
     }
 
+
+    public void deleteByObject(ClientsDao dao) {
+        try (Connection connection = connector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_CLIENTS_BY_ID)) {
+            statement.setInt(1, dao.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public List<ClientsDao> selectAll() {
         List<ClientsDao> clientsList = new ArrayList<>();
