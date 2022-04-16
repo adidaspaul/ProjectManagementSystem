@@ -29,9 +29,7 @@ public class ProjectsService {
                 .orElseThrow(() -> new IllegalArgumentException("Project with id " + id + " not found")));
     }
 
-//    public void delete(ProjectsDto id) {
-//        repository.delete(converter.convert(id));
-//    }
+
 
     public void update(ProjectsDto project) {
         repository.update(converter.convert(project));

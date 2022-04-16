@@ -8,9 +8,7 @@ import ua.goit.model.converter.CompaniesConverter;
 import ua.goit.model.converter.DevelopersConverter;
 import ua.goit.model.converter.QueryConverter;
 import ua.goit.model.dao.*;
-import ua.goit.model.dto.CompaniesDto;
 import ua.goit.model.dto.DevelopersDto;
-import ua.goit.service.CompaniesService;
 import ua.goit.service.DevelopersService;
 import ua.goit.service.QueiriesService;
 import ua.goit.model.dao.ProjectsDao;
@@ -93,13 +91,5 @@ public class Main {
         client.setCategory("Premium");
         clientRep.save(client);
         clientRep.selectAll().forEach(System.out::println);
-
-
-
-
-
-
-
-
     }
 }

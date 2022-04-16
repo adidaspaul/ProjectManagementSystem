@@ -28,9 +28,6 @@ public class ClientsService {
         return converter.convert(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Client with id " + id + " not found")));
     }
 
-//    public void delete(ClientsDto id) {
-//        repository.delete(converter.convert(id));
-//    }
 
     public void update(ClientsDto client) {
         repository.update(converter.convert(client));

@@ -29,9 +29,7 @@ public class CompaniesService {
         return converter.convert(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Company with the id was not found")));
     }
 
-//    public void delete(CompaniesDto id) {
-//        repository.delete(converter.convert(id));
-//    }
+
 
     public void update(CompaniesDto company) {
         repository.update(converter.convert(company));
