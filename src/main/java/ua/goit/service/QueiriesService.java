@@ -16,7 +16,6 @@ import java.util.List;
 public class QueiriesService {
 
     private final QueryConverter sumConverter;
-//    private final DataBaseManagerConnector connector;
     private final HikariProvider connector;
     private static final String PROJECT_SALARY_SUM_HIGHEST = "SELECT pr.project_name, SUM(salary) total FROM projects as pr" +
             "INNER JOIN devprojects ON devprojects.project_id = pr.id" +
